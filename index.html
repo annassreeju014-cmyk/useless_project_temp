@@ -1,1 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍕 Last Piece Algorithm</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            color: #d32f2f;
+            text-align: center;
+            font-size: 26px;
+            margin-bottom: 8px;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, select:focus {
+            border-color: #ff6f61;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            background: #ff6f61;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background: #e05549;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #result-card {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #fff8e1;
+            border: 2px dashed #ffa000;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        #result-card h2 {
+            color: #ff8f00;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        #winner-name {
+            font-size: 24px;
+            color: #d32f2f;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        #reasonText {
+            color: #555;
+            font-size: 13px;
+            font-style: italic;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🍕 Last Piece Algorithm</h1>
+        <p class="subtitle">Highly Sophisticated "AI" for Food Disputes 😂</p>
+
+        <div class="form-group">
+            <label>1. Who is eating? (Comma separated)</label>
+            <input type="text" id="eaters" placeholder="e.g., Anna, Rahul, Amal, Neethu">
+        </div>
+
+        <div class="form-group">
+            <label>2. Who ate the most already? 🍗</label>
+            <input type="text" id="ateMost" placeholder="Enter name">
+        </div>
+
+        <div class="form-group">
+            <label>3. Who said "I don't want it" first? 🤨</label>
+            <input type="text" id="saidNoFirst" placeholder="Enter name">
+        </div>
+
+        <div class="form-group">
+            <label>4. Who is closest to the plate? 📍</label>
+            <input type="text" id="closest" placeholder="Enter name">
+        </div>
+
+        <div class="form-group">
+            <label>5. Who touched the plate last? 👀</label>
+            <input type="text" id="touchedLast" placeholder="Enter name">
+        </div>
+
+        <button onclick="runAlgorithm()">Calculate Last Piece Score 🧮</button>
+
+        <div id="result-card">
+            <h2>🏆 The Algorithm Has Spoken!</h2>
+            <div id="winner-name">---</div>
+            <p id="reasonText">---</p>
+        </div>
+    </div>
+
+    <script>
+        function runAlgorithm() {
+            const eatersInput = document.getElementById('eaters').value.trim();
+            if (!eatersInput) {
+                alert('Please enter at least two people who are eating!');
+                return;
+            }
+
+            const people = eatersInput.split(',').map(name => name.trim()).filter(name => name !== '');
+            if (people.length < 2) {
+                alert('Please enter at least two valid names separated by commas!');
+                return;
+            }
+
+            const scores = {};
+            people.forEach(person => scores[person] = 0);
+
+            const ateMost = document.getElementById('ateMost').value.trim();
+            const saidNoFirst = document.getElementById('saidNoFirst').value.trim();
+            const closest = document.getElementById('closest').value.trim();
+            const touchedLast = document.getElementById('touchedLast').value.trim();
+
+            people.forEach(person => {
+                // Penalize person who ate the most
+                if (ateMost && person.toLowerCase() === ateMost.toLowerCase()) {
+                    scores[person] -= 15;
+                }
+                // Massive bonus for fake modesty ("I don't want it")
+                if (saidNoFirst && person.toLowerCase() === saidNoFirst.toLowerCase()) {
+                    scores[person] += 25;
+                }
+                // Slight penalty for being closest (greed index)
+                if (closest && person.toLowerCase() === closest.toLowerCase()) {
+                    scores[person] -= 5;
+                }
+                // Bonus for touching the plate last (claiming ownership)
+                if (touchedLast && person.toLowerCase() === touchedLast.toLowerCase()) {
+                    scores[person] += 10;
+                }
+                // Random highly sophisticated "AI" variable
+                scores[person] += Math.floor(Math.random() * 15);
+            });
+
+            let winner = people[0];
+            let maxScore = scores[people[0]];
+
+            people.forEach(person => {
+                if (scores[person] > maxScore) {
+                    maxScore = scores[person];
+                    winner = person;
+                }
+            });
+
+            const reasons = [
+                `because they said "I don't want it" first, revealing maximum reverse psychology! 🧠`,
+                `due to having the lowest Greed Score and highest fake modesty! 😌`,
+                `because the algorithm detected extreme starvation in their eyes! 👀`,
+                `as penalty compensation for eating the least so far! 🍗`
+            ];
+            
+            const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
+
+            document.getElementById('winner-name').innerText = `🎉 ${winner}! 🎉`;
+            document.getElementById('reasonText').innerText = `Decision reason: ${randomReason} (Score: ${maxScore} pts)`;
+            document.getElementById('result-card').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
