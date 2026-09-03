@@ -3,248 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🍕 Last Piece Algorithm</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
 
-        body {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+    <title>Milk Drop Algorithm</title>
 
-        .container {
-            background: #ffffff;
-            border-radius: 20px;
-            padding: 30px;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        h1 {
-            color: #d32f2f;
-            text-align: center;
-            font-size: 26px;
-            margin-bottom: 8px;
-        }
-
-        p.subtitle {
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 6px;
-            font-size: 14px;
-        }
-
-        input[type="text"], select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus, select:focus {
-            border-color: #ff6f61;
-        }
-
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 18px;
-        }
-
-        .checkbox-group label {
-            margin-bottom: 0;
-            cursor: pointer;
-        }
-
-        button {
-            width: 100%;
-            background: #ff6f61;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.1s;
-        }
-
-        button:hover {
-            background: #e05549;
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        #result-card {
-            display: none;
-            margin-top: 25px;
-            padding: 20px;
-            border-radius: 12px;
-            background: #fff8e1;
-            border: 2px dashed #ffa000;
-            text-align: center;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        #result-card h2 {
-            color: #ff8f00;
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        #winner-name {
-            font-size: 24px;
-            color: #d32f2f;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-
-        #reasonText {
-            color: #555;
-            font-size: 13px;
-            font-style: italic;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<!-- ================= HOME ================= -->
+
+<section id="home" class="screen active">
+
     <div class="container">
-        <h1>🍕 Last Piece Algorithm</h1>
-        <p class="subtitle">Highly Sophisticated "AI" for Food Disputes 😂</p>
 
-        <div class="form-group">
-            <label>1. Who is eating? (Comma separated)</label>
-            <input type="text" id="eaters" placeholder="e.g., Anna, Rahul, Amal, Neethu">
+        <div class="emoji">🥛</div>
+
+        <h1>പാൽ തന്നെ അല്ലേ🫣🐄</h1>
+
+        <p class="home-text">
+            The world's most unnecessary algorithm.<br>
+            Because someone has to count the milk drops.
+        </p>
+
+        <div class="jug-area" id="jugButton">
+
+            <div class="drop drop1"></div>
+            <div class="drop drop2"></div>
+            <div class="drop drop3"></div>
+            <div class="drop drop4"></div>
+
+            <div class="jug">
+
+                <div class="jug-top"></div>
+
+                <div class="handle"></div>
+
+                <div class="milk">
+                    <div class="milk-top"></div>
+                </div>
+
+            </div>
+
+            <div class="tap">
+                👆 JUG -ൽ തൊട്ടു നോക്കിയേ..
+            </div>
+
         </div>
 
-        <div class="form-group">
-            <label>2. Who ate the most already? 🍗</label>
-            <input type="text" id="ateMost" placeholder="Enter name">
-        </div>
-
-        <div class="form-group">
-            <label>3. Who said "I don't want it" first? 🤨</label>
-            <input type="text" id="saidNoFirst" placeholder="Enter name">
-        </div>
-
-        <div class="form-group">
-            <label>4. Who is closest to the plate? 📍</label>
-            <input type="text" id="closest" placeholder="Enter name">
-        </div>
-
-        <div class="form-group">
-            <label>5. Who touched the plate last? 👀</label>
-            <input type="text" id="touchedLast" placeholder="Enter name">
-        </div>
-
-        <button onclick="runAlgorithm()">Calculate Last Piece Score 🧮</button>
-
-        <div id="result-card">
-            <h2>🏆 The Algorithm Has Spoken!</h2>
-            <div id="winner-name">---</div>
-            <p id="reasonText">---</p>
-        </div>
     </div>
 
-    <script>
-        function runAlgorithm() {
-            const eatersInput = document.getElementById('eaters').value.trim();
-            if (!eatersInput) {
-                alert('Please enter at least two people who are eating!');
-                return;
-            }
+</section>
 
-            const people = eatersInput.split(',').map(name => name.trim()).filter(name => name !== '');
-            if (people.length < 2) {
-                alert('Please enter at least two valid names separated by commas!');
-                return;
-            }
 
-            const scores = {};
-            people.forEach(person => scores[person] = 0);
+<!-- ================= UPLOAD ================= -->
 
-            const ateMost = document.getElementById('ateMost').value.trim();
-            const saidNoFirst = document.getElementById('saidNoFirst').value.trim();
-            const closest = document.getElementById('closest').value.trim();
-            const touchedLast = document.getElementById('touchedLast').value.trim();
+<section id="uploadScreen" class="screen">
 
-            people.forEach(person => {
-                // Penalize person who ate the most
-                if (ateMost && person.toLowerCase() === ateMost.toLowerCase()) {
-                    scores[person] -= 15;
-                }
-                // Massive bonus for fake modesty ("I don't want it")
-                if (saidNoFirst && person.toLowerCase() === saidNoFirst.toLowerCase()) {
-                    scores[person] += 25;
-                }
-                // Slight penalty for being closest (greed index)
-                if (closest && person.toLowerCase() === closest.toLowerCase()) {
-                    scores[person] -= 5;
-                }
-                // Bonus for touching the plate last (claiming ownership)
-                if (touchedLast && person.toLowerCase() === touchedLast.toLowerCase()) {
-                    scores[person] += 10;
-                }
-                // Random highly sophisticated "AI" variable
-                scores[person] += Math.floor(Math.random() * 15);
-            });
+    <div class="container">
 
-            let winner = people[0];
-            let maxScore = scores[people[0]];
+        <div class="card">
 
-            people.forEach(person => {
-                if (scores[person] > maxScore) {
-                    maxScore = scores[person];
-                    winner = person;
-                }
-            });
+            <div class="emoji">🐮</div>
 
-            const reasons = [
-                `because they said "I don't want it" first, revealing maximum reverse psychology! 🧠`,
-                `due to having the lowest Greed Score and highest fake modesty! 😌`,
-                `because the algorithm detected extreme starvation in their eyes! 👀`,
-                `as penalty compensation for eating the least so far! 🍗`
-            ];
-            
-            const randomReason = reasons[Math.floor(Math.random() * reasons.length)];
+            <h2>താഴോട്ട് നോക്കിയേ...</h2>
 
-            document.getElementById('winner-name').innerText = `🎉 ${winner}! 🎉`;
-            document.getElementById('reasonText').innerText = `Decision reason: ${randomReason} (Score: ${maxScore} pts)`;
-            document.getElementById('result-card').style.display = 'block';
-        }
-    </script>
+            <p>
+                Upload a photo of your milk glass.<br>
+                On the way........!!!!hurrayy!
+            </p>
+
+            <div class="upload" id="uploadBox">
+
+                <div class="upload-icon">🥛</div>
+
+                <strong>Touch me...🫣</strong>
+
+                <p>JPG, PNG or WEBP</p>
+
+            </div>
+
+            <input
+                type="file"
+                id="fileInput"
+                accept="image/*"
+            >
+
+            <div
+                class="preview-container"
+                id="previewContainer">
+
+                <img
+                    id="preview"
+                    alt="Milk image preview">
+
+                <canvas id="analysisCanvas"></canvas>
+
+            </div>
+
+            <button
+                id="continueBtn"
+                style="display:none;">
+
+                ANALYZE PICTURE →
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= QUESTIONS ================= -->
+
+<section id="questions" class="screen">
+
+    <div class="container">
+
+        <div class="card">
+
+            <h2>Milk Investigation 🕵️</h2>
+
+            <p>
+                Answer 2 quick questions to fine-tune analysis.
+            </p>
+
+            <div class="progress">
+
+                <div
+                    id="progressBar"
+                    class="progress-bar">
+                </div>
+
+            </div>
+
+
+            <!-- QUESTION 1 -->
+
+            <div
+                id="q1"
+                class="question active">
+
+                <h3>
+                    🤔 How confident are you in this image?
+                </h3>
+
+                <div class="options-container">
+
+                    <button
+                        class="option confidence"
+                        data-value="high">
+
+                        😎 100% confident
+
+                    </button>
+
+                    <button
+                        class="option confidence"
+                        data-value="medium">
+
+                        🙂 Probably correct
+
+                    </button>
+
+                    <button
+                        class="option confidence"
+                        data-value="low">
+
+                        🫠 I have no idea
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- QUESTION 2 -->
+
+            <div
+                id="q2"
+                class="question">
+
+                <h3>
+                    🧠 Why are you analyzing this?
+                </h3>
+
+                <div class="options-container">
+
+                    <button
+                        class="option reason"
+                        data-value="hackathon">
+
+                        💻 Hackathon
+
+                    </button>
+
+                    <button
+                        class="option reason"
+                        data-value="curiosity">
+
+                        🤓 Scientific curiosity
+
+                    </button>
+
+                    <button
+                        class="option reason"
+                        data-value="nothing">
+
+                        🗿 No reason
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LOADING ================= -->
+
+<section id="loading" class="screen">
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="emoji">🧪</div>
+
+            <h2>Analyzing Image...</h2>
+
+            <div class="loader"></div>
+
+            <p id="loadingText">
+                Scanning pixels for white liquid region...
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= RESULT ================= -->
+
+<section id="result" class="screen">
+
+    <div class="container">
+
+        <div class="card">
+
+            <div class="result-icon">🎉</div>
+
+            <h2>RESULT</h2>
+
+            <div
+                id="resultNumber"
+                class="result-number">
+
+                0
+
+            </div>
+
+            <div class="unit">
+                MILK DROPS ANALYZED
+            </div>
+
+            <p
+                id="message"
+                class="message">
+            </p>
+
+            <button id="againBtn">
+                🔄 ANALYZE ANOTHER IMAGE
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script src="script.js"></script>
+
 </body>
 </html>
