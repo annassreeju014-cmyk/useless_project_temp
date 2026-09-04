@@ -74,6 +74,16 @@ For Hardware:
 ![Components](Add photo of your components here)
 *List out all components shown*
 
+https://github.com/user-attachments/assets/685c6e98-5eca-492e-a804-aa2550c97cb4
+
+
+
+https://github.com/user-attachments/assets/98b719fc-be90-43cd-b235-cee8f9b9e33b
+
+<img width="716" height="1600" alt="WhatsApp Image 2026-09-04 at 5 31 31 AM" src="https://github.com/user-attachments/assets/0f465eb0-fa56-4ccd-ae1a-590e94bc18fb" />
+<img width="716" height="1600" alt="WhatsApp Image 2026-09-04 at 5 31 30 AM" src="https://github.com/user-attachments/assets/c2ef48c0-70aa-406c-9687-553e2395f577" />
+
+
 ![Build](Add photos of build process here)
 *Explain the build steps*
 
@@ -82,7 +92,7 @@ For Hardware:
 
 ### Project Demo
 # Video
-[Add your demo video link here]
+https://useless-project-temp-nine-xi.vercel.app/
 *Explain what the video demonstrates*
 
 # Additional Demos
